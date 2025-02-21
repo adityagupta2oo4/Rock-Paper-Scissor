@@ -1,3 +1,4 @@
+//getting computer INput
 function getComputerChoice(){
 
     let num = Math.floor(Math.random()*3 + 1);
@@ -11,37 +12,33 @@ function getComputerChoice(){
 
 }
 
-function getHumanChoice(){
 
-    let choice = prompt("Choose Rock-Paper-Scissors!");
-    choice = choice.toLowerCase();
-    //verifing the input
-    while(!(choice == "rock" || choice == "paper" || choice == "scissors")){
-
-       choice =  prompt(" Invalid Input!, Choose Rock-Paper-Scissors Again");
-       choice.toLowerCase();
-    }
-    return choice;
-
-}
-
+//setting the score
 let humanScore = 0;
 let computerScore = 0;
 
+const result_div = document.createElement("div"); // display the scores
+const container = document.querySelector("#container");
+const lose_win = document.createElement("p");
+
+
+
 function playRound(humanChoice,computerChoice){
+
+
 
     //possibility one
     if(humanChoice == "rock"){
         if(computerChoice == "paper"){
-            console.log(`You lose! ${computerChoice} beats ${humanChoice}`);
+            lose_win.textContent = `You lose! ${computerChoice} beats ${humanChoice}`;
             computerScore++;
         }
         else if(computerChoice == "scissors"){
-            console.log(`You Win! ${humanChoice} beats ${computerChoice}`);
+            lose_win.textContent = `You Win! ${humanChoice} beats ${computerChoice}`;
             humanScore++;
         }
         else{
-            console.log(`It's a Tie! ${humanChoice} same ${computerChoice}`);
+            lose_win.textContent =`It's a Tie! ${humanChoice} same ${computerChoice}`;
 
             
         }
@@ -51,15 +48,15 @@ function playRound(humanChoice,computerChoice){
     //possibilty Two
     if(humanChoice == "paper"){
         if(computerChoice == "scissors"){
-            console.log(`You lose! ${computerChoice} beats ${humanChoice}`);
+            lose_win.textContent =`You lose! ${computerChoice} beats ${humanChoice}`;
             computerScore++;
         }
-        else if(computerChoice == "paper"){
-            console.log(`You Win! ${humanChoice} beats ${computerChoice}`);
+        else if(computerChoice == "rock"){
+            lose_win.textContent =`You Win! ${humanChoice} beats ${computerChoice}`;
             humanScore++;
         }
         else{
-            console.log(`It's a Tie! ${humanChoice} same ${computerChoice}`);
+            lose_win.textContent =`It's a Tie! ${humanChoice} same ${computerChoice}`;
 
             
         }
@@ -69,38 +66,98 @@ function playRound(humanChoice,computerChoice){
     //possibilty Three
     if(humanChoice == "scissors"){
         if(computerChoice == "rock"){
-            console.log(`You lose! ${computerChoice} beats ${humanChoice}`);
+            lose_win.textContent =`You lose! ${computerChoice} beats ${humanChoice}`;
             computerScore++;
         }
         else if(computerChoice == "paper"){
-            console.log(`You Win! ${humanChoice} beats ${computerChoice}`);
+            lose_win.textContent =`You Win! ${humanChoice} beats ${computerChoice}`;
             humanScore++;
         }
         else{
-            console.log(`It's a Tie! ${humanChoice} same ${computerChoice}`);
+            lose_win.textContent =`It's a Tie! ${humanChoice} same ${computerChoice}`;
         }
 
     }
 
+    //appending the lose_win
+
+    container.appendChild(lose_win);
+
 }
 
 
 
 
 
-function playGame(){
 
-    let round = 5;
-    for(let i = 0 ; i<round ; i++){
 
-        const humanChoice = getHumanChoice();
-        const computerChoice = getComputerChoice();
-        playRound(humanChoice,computerChoice);
-        console.log(`Human score: ${humanScore} , Computer score: ${computerScore}`);
-    }
+function display_result(){
 
-    console.log(`The game ended with, Human score: ${humanScore} AND Computer score: ${computerScore}`);
+    result_div.textContent = `Human score: ${humanScore} , Computer score: ${computerScore}`;
+
+    // result_div.textContent = `The game ended with, Human score: ${humanScore} AND Computer score: ${computerScore}`;
+    container.appendChild(result_div);
+    
 }
 
 //this is where it all get started
-playGame();
+
+
+const rock_btn = document.querySelector("#rock");
+const paper_btn = document.querySelector("#paper");
+const scissors_btn = document.querySelector("#scissors");
+
+let count = 5;
+
+rock_btn.addEventListener("click", function () {
+
+    if(count>0){
+        //update
+        lose_win.textContent = "";
+        result_div.textContent = "";
+        const humanChoice = "rock";
+        const computerChoice = getComputerChoice();
+        playRound(humanChoice,computerChoice);
+        display_result();
+        count--;
+    }else{
+        alert("Sorry You can only play Five Round ! Reload To play Again");
+
+    }
+
+});
+
+paper_btn.addEventListener("click", function () {
+    if(count>0){
+        //update
+        lose_win.textContent = "";
+        result_div.textContent = "";
+        const humanChoice = "paper";
+        const computerChoice = getComputerChoice();
+        playRound(humanChoice,computerChoice);
+        display_result();
+        count--;
+    }else{
+        alert("Sorry You can only play Five Round ! Reload to Play Again");
+
+    }
+
+});
+
+scissors_btn.addEventListener("click", function () {
+    if(count>0){
+        //update
+        lose_win.textContent = "";
+        result_div.textContent = "";
+        const humanChoice = "scissors";
+        const computerChoice = getComputerChoice();
+        playRound(humanChoice,computerChoice);
+        display_result();
+        count--;
+    }else{
+        alert("Sorry You can only play Five Round ! Reload to Play Again");
+
+    }
+
+});
+
